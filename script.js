@@ -29,9 +29,30 @@ function clearForm() {
     document.querySelector('#author').value = ''
 }
 
+function showModal(){
+    document.querySelector('#dialogForm').showModal()
+}
+
+function closeModal() {
+    document.querySelector('#dialogForm').close()
+}
+
 const submitBtn = document.querySelector('#submit')
 
-submitBtn.addEventListener('click', submit)
+document.addEventListener('click', function(e) {
+    const id = e.target.id
+    switch (id) {
+        case 'addBook':
+            showModal()
+            return
+        case 'submit':
+            submit()
+            return
+        case 'back':
+            closeModal()
+            return
+    }
+})
 
 function submit () {
     const bookName = document.querySelector('#book').value
@@ -40,6 +61,7 @@ function submit () {
     addBookToLibrary(newBook)
     createTable()
     clearForm()
+    closeModal()
 }
 
 

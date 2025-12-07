@@ -9,27 +9,38 @@
 </head>
 <body>
     <div class="top-bar">My Library</div>
-    <div class="form">
-        <div>
-            <label for="book">Book:</label><br>
-            <input type="text" id="book" name="book"><br>
+    <div class="main-content">
+        <dialog id="dialogForm">
+            <div class="form">
+                <div>
+                    <label for="book">Book:</label>
+                    <input type="text" id="book" name="book">
+                </div>
+                <div>
+                    <label for="author">Author:</label>
+                    <input type="text" id="author" name="author">
+                </div>
+                <button id="submit">Submit</button>
+            </div>
+        </dialog>
+        <div class='align-right'>
+            <button id="addBook">Add book</button>
         </div>
         <div>
-            <label for="author">Author:</label><br>
-            <input type="text" id="author" name="author"><br>
+            <table id="library">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Author</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
-        <button id="submit">Submit</button>
     </div>
-    <table id="library">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Author</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+
+
 </body>
 </html>
