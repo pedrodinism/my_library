@@ -26,6 +26,13 @@ body {
   justify-content: end;
 }
 
+/* General classes */
+
+.action {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 /* Forms */
 
 .form {

@@ -1,4 +1,4 @@
-const library = []
+let library = []
 
 function Book(name, author) {
     this.id = crypto.randomUUID()
@@ -13,13 +13,19 @@ function addBookToLibrary(book) {
 function createTable() {
     const tableBody = document.querySelector('#library tbody')
     tableBody.innerHTML = ''
-    for (const book of library) {        
+    for (const book of library) {       
         const row = document.createElement('tr')
         for (const prop in book) {
             const cell = document.createElement('td')
             cell.textContent = book[prop]
             row.appendChild(cell)
         }
+        const cellAction = document.createElement('td')
+        cellAction.textContent = "delete"
+        cellAction.classList.add("action")
+        cellAction.dataset.id = book['id']
+        cellAction.dataset.action = 'delete'
+        row.appendChild(cellAction)
         tableBody.appendChild(row)
     } 
 }
@@ -40,8 +46,17 @@ function closeModal() {
 const submitBtn = document.querySelector('#submit')
 
 document.addEventListener('click', function(e) {
-    const id = e.target.id
-    switch (id) {
+    const target = e.target
+
+    if (target.classList.contains('action')) {
+        const action = target.dataset.action
+        const id = target.dataset.id
+
+        if (action === 'delete') deleteBook(id)
+        return
+    }
+
+    switch (target.id) {
         case 'addBook':
             showModal()
             return
@@ -64,7 +79,10 @@ function submit () {
     closeModal()
 }
 
-
+function deleteBook(id) {
+    library = library.filter(book => book.id !== id);
+    createTable()
+}
 
 //const book = new Book('H', 'JK'); addBookToLibrary(book) - just some code to create a book and add it to the library
 
