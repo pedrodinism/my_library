@@ -62,15 +62,21 @@ input[type=submit]:hover {
 /* Buttons */
 
 button {
-  background-color: green;
-  border: none;
-  color: white;
   padding: 10px 20px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
   cursor: pointer;
+  background-color: lightgray;
+  border: none;
+  color: black;
+}
+
+.btn-primary {
+  background-color: green;
+  border: none;
+  color: white;
 }
 
 
