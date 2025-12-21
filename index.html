@@ -11,7 +11,7 @@
     <div class="top-bar">My Library</div>
     <div class="main-content">
         <dialog id="dialogForm">
-            <div class="form">
+            <form id="bookForm" class="form">
                 <div>
                     <label for="book">Book:</label>
                     <input type="text" id="book" name="book">
@@ -20,9 +20,9 @@
                     <label for="author">Author:</label>
                     <input type="text" id="author" name="author">
                 </div>
-                <button id="submit" class="btn-primary">Submit</button>
-                <button id="back">Back</button>
-            </div>
+                <button id="submit" type="submit" class="btn-primary">Submit</button>
+                <button id="back" type="button">Back</button>
+            </form>
         </dialog>
         <div class='align-right'>
             <button id="addBook">Add book</button>
@@ -34,6 +34,7 @@
                         <th>Id</th>
                         <th>Name</th>
                         <th>Author</th>
+                        <th>IsRead</th>
                         <th></th>
                     </tr>
                 </thead>

@@ -4,6 +4,11 @@ function Book(name, author) {
     this.id = crypto.randomUUID()
     this.name = name
     this.author = author
+    this.read = false
+}
+
+Book.prototype.setRead = function () {
+    this.read = !this.read
 }
 
 function addBookToLibrary(book) {
@@ -15,24 +20,44 @@ function createTable() {
     tableBody.innerHTML = ''
     for (const book of library) {       
         const row = document.createElement('tr')
-        for (const prop in book) {
-            const cell = document.createElement('td')
-            cell.textContent = book[prop]
-            row.appendChild(cell)
+        const props = [
+            book.id,
+            book.name,
+            book.author,
+            book.read ? 'Yes' : 'No'
+        ]
+        for (const prop of props) {
+                const cell = document.createElement('td')
+                cell.textContent = prop
+                row.appendChild(cell)
         }
         const cellAction = document.createElement('td')
-        cellAction.textContent = "delete"
-        cellAction.classList.add("action")
-        cellAction.dataset.id = book['id']
-        cellAction.dataset.action = 'delete'
+
+        const deleteAction = document.createElement('p')
+        deleteAction.textContent = "delete"
+        deleteAction.classList.add("action")
+        deleteAction.dataset.id = book['id']
+        deleteAction.dataset.action = 'delete'
+        cellAction.appendChild(deleteAction)
+
+        const readAction = document.createElement('p')
+        readAction.textContent = book.read ? "mark unread" : "mark read"
+        readAction.classList.add("action")
+        readAction.dataset.id = book['id']
+        readAction.dataset.action = 'setAsRead'
+        cellAction.appendChild(readAction)
+
         row.appendChild(cellAction)
         tableBody.appendChild(row)
     } 
 }
 
+const book = document.querySelector('#book')
+const author = document.querySelector('#author')
+
 function clearForm() {
-    document.querySelector('#book').value = ''
-    document.querySelector('#author').value = ''
+    book.value = '' 
+    author.value = ''
 }
 
 function showModal(){
@@ -52,21 +77,35 @@ document.addEventListener('click', function(e) {
         const action = target.dataset.action
         const id = target.dataset.id
 
-        if (action === 'delete') deleteBook(id)
-        return
+        switch (action) {
+            case 'delete':
+                deleteBook(id)
+                return
+            case 'setAsRead':
+                const book = library.find(b => b.id === id)
+                if (!book) return //make sure it doesn't return a runtime error if doesn't find anything
+
+                book.setRead()
+                createTable()
+                return
+        }
     }
 
     switch (target.id) {
         case 'addBook':
             showModal()
             return
-        case 'submit':
-            submit()
-            return
         case 'back':
             closeModal()
             return
     }
+})
+
+const form = document.querySelector('#bookForm')
+
+form.addEventListener('submit', function(e) {
+    e.preventDefault()
+    submit()
 })
 
 function submit () {
